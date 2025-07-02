@@ -1,0 +1,44 @@
+﻿@inherits LayoutComponentBase
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+            <div class="widget" style="display: flex; align-items: center; justify-content: center;">
+                <div class="dropdn-btn">
+                    <a href="index.html">Home</a>
+                </div>
+                <div class="dropdn-btn">
+                    <a href="sign-in.html" alt="Index">Index</a>
+                </div>
+                <div style="flex: 1; display: flex; justify-content: center;">
+                    <div class="search-bar" style="min-width: 200px; max-width: 400px;">
+                        <input type="text" placeholder="Search..." />
+                    </div>
+                </div>
+                <div style="margin-left:auto; display:flex; gap:10px;">
+                    <div class="dropdn-btn">
+                        <a href="#" alt="Apps">Apps</a>
+                    </div>
+                    <div class="dropdn-btn">
+                        <a href="#" alt="Account">Account</a>
+                    </div>
+                    <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+                </div>
+            </div>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
