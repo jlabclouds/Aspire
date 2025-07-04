@@ -111,6 +111,9 @@ Aspire is a full-stack web application framework featuring an ASP.NET Core backe
 5. **Access the app:**
     Open your browser and navigate to `https://localhost:5001` (or the URL shown in the console).
 
+6. **VS Code:**
+    Run and Debug using C# extension in the project directory Aspire.AppHost
+
     ## When to Choose Aspire Over React + ASP.NET Core (TypeScript)
 
     Choose Aspire's ASP.NET Core + Blazor structure instead of a React + ASP.NET Core (TypeScript) stack when:
