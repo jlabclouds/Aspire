@@ -1,0 +1,175 @@
+@page "/fleet"
+@using System.Collections.Generic
+
+<PageTitle>Robot Fleet Manager Dashboard</PageTitle>
+
+<h1>Robot Fleet Manager Dashboard</h1>
+
+<div class="map-placeholder" style="margin-bottom: 2rem;">
+    <iframe
+        width="100%"
+        height="400"
+        frameborder="0"
+        style="border:0"
+        src="https://www.google.com/maps/embed/v1/view?key=YOUR_API_KEY&center=37.7749,-122.4194&zoom=10"
+        allowfullscreen>
+    </iframe>
+    <p style="color: gray; font-size: 0.9rem;">
+        This map is a placeholder. In the future, robot locations and sensor info will be displayed here.
+    </p>
+</div>
+
+<div class="dashboard-container">
+    <div class="stats-cards">
+        <div class="card">
+            <h3>Total Robots</h3>
+            <p>@TotalRobots</p>
+        </div>
+        <div class="card">
+            <h3>Active Robots</h3>
+            <p>@ActiveRobots</p>
+        </div>
+        <div class="card">
+            <h3>Robots in Maintenance</h3>
+            <p>@RobotsInMaintenance</p>
+        </div>
+    </div>
+
+    <h2>Robot Fleet Overview</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Robot ID</th>
+                <th>Model</th>
+                <th>Status</th>
+                <th>Last Maintenance</th>
+                <th>Battery Level (%)</th>
+                <th>Location</th>
+                <th>Sensors</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var robot in Robots)
+            {
+                <tr>
+                    <td>@robot.Id</td>
+                    <td>@robot.Model</td>
+                    <td>@robot.Status</td>
+                    <td>@robot.LastMaintenanceDate.ToShortDateString()</td>
+                    <td>@robot.BatteryLevel</td>
+                    <td>@robot.Location</td>
+                    <td>
+                        @if (robot.Sensors != null && robot.Sensors.Any())
+                        {
+                            <ul>
+                                @foreach (var sensor in robot.Sensors)
+                                {
+                                    <li>@sensor.Name: @sensor.Value</li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <span>No Data</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@code {
+        protected override async Task OnInitializedAsync()
+    {
+        await FetchRobotLocationsFromGoogleMapsAsync();
+    }
+
+    // Placeholder for Google Maps API call
+    private async Task FetchRobotLocationsFromGoogleMapsAsync()
+    {
+        // Simulate an API call delay
+        await Task.Delay(500);
+
+        // This is where you would call Google Maps API and update robot locations or sensor data
+        // For now, just a placeholder log or comment
+        Console.WriteLine("Google Maps API call placeholder - insert live sensor/streaming logic here.");
+    }
+
+    public class Robot
+    {
+        public int Id { get; set; }
+        public string Model { get; set; }
+        public string Status { get; set; }
+        public DateTime LastMaintenanceDate { get; set; }
+        public int BatteryLevel { get; set; }
+        public string Location { get; set; } // New property for location
+        public List<SensorInfo> Sensors { get; set; } // New property for sensors
+    }
+
+    public class SensorInfo
+    {
+        public string Name { get; set; }
+        public string Value { get; set; }
+    }
+
+    private List<Robot> Robots = new()
+    {
+        new Robot
+        {
+            Id = 101,
+            Model = "Atlas",
+            Status = "Active",
+            LastMaintenanceDate = DateTime.Now.AddDays(-15),
+            BatteryLevel = 85,
+            Location = "Warehouse A",
+            Sensors = new List<SensorInfo>
+            {
+                new SensorInfo { Name = "Temperature", Value = "36°C" },
+                new SensorInfo { Name = "Proximity", Value = "Clear" }
+            }
+        },
+        new Robot
+        {
+            Id = 102,
+            Model = "Spot",
+            Status = "Maintenance",
+            LastMaintenanceDate = DateTime.Now.AddDays(-5),
+            BatteryLevel = 60,
+            Location = "Workshop",
+            Sensors = new List<SensorInfo>
+            {
+                new SensorInfo { Name = "Temperature", Value = "40°C" }
+            }
+        },
+        new Robot
+        {
+            Id = 103,
+            Model = "Pepper",
+            Status = "Active",
+            LastMaintenanceDate = DateTime.Now.AddDays(-20),
+            BatteryLevel = 90,
+            Location = "Lobby",
+            Sensors = new List<SensorInfo>
+            {
+                new SensorInfo { Name = "Humidity", Value = "45%" }
+            }
+        },
+        new Robot
+        {
+            Id = 104,
+            Model = "Nao",
+            Status = "Inactive",
+            LastMaintenanceDate = DateTime.Now.AddDays(-40),
+            BatteryLevel = 40,
+            Location = "Storage",
+            Sensors = null
+        }
+    };
+
+    private int TotalRobots => Robots.Count;
+    private int ActiveRobots => Robots.Count(r => r.Status == "Active");
+    private int RobotsInMaintenance => Robots.Count(r => r.Status == "Maintenance");
+}
+
+
