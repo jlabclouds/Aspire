@@ -1,4 +1,7 @@
 # Aspire + ASP.NET + Blazor + C# Project Template
+    * Create commands for Client and Server so that when user clicks on Iso favicon, give options, Docker/Podmam/Kube or vm (server or desktop) is launched based upon users detected OS and arch (Start with Ubuntu KDE that allows switching between desktops flavours)
+    * Create Img using cockpit that has pre-installed environments such as Ubuntu Noble Numbat with ROS2, Gazebo, Nvidia Isaac Sim, and Web-ots
+    * Without Cloud deployments, programs will be less likely to run accordingly due to lack of GPU acceleration
 
 ## Overview
 
